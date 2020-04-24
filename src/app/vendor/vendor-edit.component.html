@@ -1,0 +1,202 @@
+<div class="container-fluid">
+  <h1 class="text-center">Vendor Information</h1>
+  <div class="row">
+    <div class="col">
+      <form (ngSubmit)="onSubmit()" #vendorForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="vendor.vendorname" name="name" #name="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="vendor.vendoremail" name="email" #email="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="vendor.vendorpassword" name="password" #password="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="address1">Address 1</label>
+          <input type="text" class="form-control" id="address1" [(ngModel)]="vendor.vendoraddress1" name="address1" #address="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="address2">Address 2</label>
+          <input type="text" class="form-control" id="address2" [(ngModel)]="vendor.vendoraddress2" name="address2" #address="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" class="form-control" id="city" [(ngModel)]="vendor.city" name="city" #city="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="state">State</label>
+          <input type="text" class="form-control" id="state" [(ngModel)]="vendor.state" name="state" #state="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="zipcode">Zipcode</label>
+          <input type="number" class="form-control" id="zipcode" [(ngModel)]="vendor.zipcode" name="zipcode" #zipcode="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" pattern="[0-9]{10,11}" class="form-control" id="phone" [(ngModel)]="vendor.vendorphone" name="phone" #phone="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="cuisine">Cuisine</label>
+          <input type="text" class="form-control" id="cuisine" [(ngModel)]="vendor.cuisine" name="cuisine" #state="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="businessType">Business Type</label>
+          <input type="text" class="form-control" id="businesstype" [(ngModel)]="vendor.businesstype" name="businesstype" #businesstype="ngModel">
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!vendorForm.form.valid">Submit</button>
+      </form>
+    </div>
+    <div class="col">
+      <h3 class="text-center">Menu <button type="button" class="ml-1 btn btn-success" (click)="dishModal(contentDish, 'add')"><i class="fas fa-plus"></i> Add</button></h3>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Availibility</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let m of menu">
+                <td>{{ m.dishname }}</td>
+                <td>{{ m.dishprice }}</td>
+                <td>{{ m.dishstatus }}</td>
+                <td>
+                    <button ngbTooltip="Edit Item" type="button" class="btn btn-primary" (click)="dishModal(contentDish, 'edit', m)"><i class="fas fa-edit"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <h3 class="text-center">Orders</h3>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Order #</th>
+                <th>Customer #</th>
+                <th>Total</th>
+                <th>Driver #</th>
+                <th>Fulfillment Type</th>
+                <th>Fulfillment Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let o of orders">
+                <td><a routerLink="/order/{{o.orderid}}">{{ o.orderid }}</a></td>
+                <td>{{ o.customerid }}</td>
+                <td>{{ o.ordertotal }}</td>
+                <td>{{ o.driverid }}</td>
+                <td>{{ o.deliverytype }}</td>
+                <td>{{ o.orderstatus }}</td>
+                <td>{{ o.datecreated | date }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <h3 class="text-center">Drivers<button type="button" class="ml-1 btn btn-success" (click)="driverModal(contentDriver, 'add')"><i class="fas fa-plus"></i> Add</button></h3>
+      <div class="row">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Vehicle</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let d of drivers">
+                <td>{{ d.drivername }}</td>
+                <td>{{ d.driveremail }}</td>
+                <td>{{ d.driverphone }}</td>
+                <td>{{ d.drivervehicle }}</td>
+                <td>
+                    <button ngbTooltip="Edit Item" type="button" class="btn btn-primary" (click)="driverModal(contentDriver, 'edit', d)"><i class="fas fa-edit"></i></button>
+                    <button ngbTooltip="Delete Item" type="button" class="btn btn-danger" (click)="delete('driver', d.driverid)"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #contentDish let-modal>
+  <div class="modal-header">
+    <h4 *ngIf="dishType === 'edit'" class="modal-title" id="modal-basic-title">Edit</h4>
+    <h4 *ngIf="dishType === 'add'" class="modal-title" id="modal-basic-title">Add</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dishname">Name</label>
+        <input type="text" class="form-control" id="dishname" [(ngModel)]="dish.dishname" name="name" #name="ngModel">
+        <label for="dishprice">Price</label>
+        <input type="number" class="form-control" id="dishprice" [(ngModel)]="dish.dishprice" name="price" #price="ngModel">
+        <label for="dishstatus">Price</label>
+        <input type="boolean" class="form-control" id="dishstatus" [(ngModel)]="dish.dishstatus" name="status" #status="ngModel">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #contentDriver let-modal>
+  <div class="modal-header">
+    <h4 *ngIf="driverType === 'edit'" class="modal-title" id="modal-basic-title">Edit Driver</h4>
+    <h4 *ngIf="driverType === 'add'" class="modal-title" id="modal-basic-title">Add Driver</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="drivername">Name</label>
+        <input type="text" class="form-control" id="drivername" [(ngModel)]="driver.drivername" name="name" #name="ngModel">
+        <label for="driveremail">Email</label>
+        <input type="email" class="form-control" id="driveremail" [(ngModel)]="driver.driveremail" name="email" #email="ngModel">
+        <label for="driverphone">Phone</label>
+        <input type="phone" class="form-control" id="driverphone" [(ngModel)]="driver.driverphone" name="phone" #phone="ngModel">
+        <label for="drivervehicle">Vehicle</label>
+        <input type="text" class="form-control" id="drivervehicle" [(ngModel)]="driver.drivervehicle" name="vehicle" #vehicle="ngModel">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

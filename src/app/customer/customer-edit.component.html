@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <h1 class="text-center">Customer Information, Reward Points: {{ this.rewards.rewardpoints }}</h1>
+  <div class="row">
+    <div class="col">
+      <form (ngSubmit)="onSubmit()" #customerForm="ngForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="customer.customername" name="name" #name="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="customer.customeremail" name="email" #email="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="customer.customerpassword" name="password" #password="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="address1">Address 1</label>
+          <input type="text" class="form-control" id="address1" [(ngModel)]="customer.customeraddress1" name="address1" #address="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="address2">Address 2</label>
+          <input type="text" class="form-control" id="address2" [(ngModel)]="customer.customeraddress2" name="address2" #address="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" class="form-control" id="city" [(ngModel)]="customer.city" name="city" #city="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="state">State</label>
+          <input type="text" class="form-control" id="state" [(ngModel)]="customer.state" name="state" #state="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="zipcode">Zipcode</label>
+          <input type="number" class="form-control" id="zipcode" [(ngModel)]="customer.zipcode" name="zipcode" #zipcode="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" pattern="[0-9]{10,11}" class="form-control" id="phone" [(ngModel)]="customer.customerphone" name="phone" #phone="ngModel">
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!customerForm.form.valid">Submit</button>
+      </form>
+    </div>
+    <div class="col" *ngIf="customer.customerid">
+      <h3 class="text-center">Orders <button type="button" class="ml-1 btn btn-success" routerLink="/order"><i class="fas fa-plus"></i> New Order</button></h3>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Order #</th>
+              <th>Vendor #</th>
+              <th>Total</th>
+              <th>Fulfillment Type</th>
+              <th>Fulfillment Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let o of orders">
+              <td><a routerLink="/order/{{o.orderid}}">{{ o.orderid }}</a></td>
+              <td>{{ o.customerid }}</td>
+              <td>{{ o.ordertotal }}</td>
+              <td>{{ o.deliverytype }}</td>
+              <td>{{ o.orderstatus }}</td>
+              <td>{{ o.datecreated | date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

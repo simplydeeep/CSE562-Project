@@ -1,0 +1,77 @@
+<div class="container">
+  <h1 class="text-center">Signup</h1>
+  <div class="row">
+    <div class="col">
+      <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="type" id="vendor" [(ngModel)]="user.type" [value]="'vendor'">
+          <label class="form-check-label" for="vendor">Vendor</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="type" id="customer" [(ngModel)]="user.type" [value]="'customer'">
+          <label class="form-check-label" for="customer">Customer</label>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Name*</label>
+          <input type="text" class="form-control" id="name" [(ngModel)]="user.name" name="name" #name="ngModel" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email*</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="user.email" name="email" #email="ngModel" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password*</label>
+          <input type="password" class="form-control" id="password" [(ngModel)]="user.password" name="password" #password="ngModel" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address1">Address 1*</label>
+          <input type="text" class="form-control" id="address1" [(ngModel)]="user.address1" name="address1" #address="ngModel" required>
+        </div>
+
+        <div class="form-group">
+          <label for="address2">Address 2</label>
+          <input type="text" class="form-control" id="address2" [(ngModel)]="user.address2" name="address2" #address="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="city">City*</label>
+          <input type="text" class="form-control" id="city" [(ngModel)]="user.city" name="city" #city="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="state">State*</label>
+          <input type="text" class="form-control" id="state" [(ngModel)]="user.state" name="state" #state="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="zipcode">Zipcode*</label>
+          <input type="number" class="form-control" id="zipcode" [(ngModel)]="user.zipcode" name="zipcode" #zipcode="ngModel">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number*</label>
+          <input type="tel" pattern="[0-9]{10,11}" class="form-control" id="phone" [(ngModel)]="user.phone" name="phone" #phone="ngModel">
+        </div>
+
+        <div *ngIf="user.type === 'vendor'">
+          <div class="form-group">
+            <label for="cuisine">Cuisine*</label>
+            <input type="text" class="form-control" id="cuisine" [(ngModel)]="user.cuisine" name="cuisine" #state="ngModel">
+          </div>
+
+          <div class="form-group">
+            <label for="businessType">Business Type*</label>
+            <input type="text" class="form-control" id="businesstype" [(ngModel)]="user.businesstype" name="businesstype" #businesstype="ngModel">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="!signupForm.form.valid && !this.user.type">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

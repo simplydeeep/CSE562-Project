@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="heading">
+    <h1>Places To Eat</h1>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zipcode</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of vendors">
+          <td>{{ v.vendorname }}</td>
+          <td>{{ v.vendorphone }}</td>
+          <td>{{ v.city }}</td>
+          <td>{{ v.state }}</td>
+          <td>{{ v.zipcode }}</td>
+          <td>
+            <div class="btn-group btn-group-sm">
+              <button type="button" (click)="menuModal(contentMenu, v.vendorid)" class="btn btn-primary"> Order</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <h1 *ngIf="!checkItems()">Review Order</h1>
+  <div *ngIf="!checkItems()">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items | keyvalue">
+              <td>{{ item.value.dishname }}</td>
+              <td>{{ item.value.dishprice | currency }}</td>
+              <td>{{ item.value.qty }}</td>
+              <td>{{ item.value.amount | currency }}
+              <td>
+                <button type="button" (click)="delete(item.key)" class="btn btn-primary"><i class="fas fa-trash-alt"></i></button>
+              </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <span class="col-auto"><b>Order Total:</b> </span> {{ orderTotal() | currency }}
+      <br>
+      <select class="col-md-6 custom-select" name="deliverytype" [(ngModel)]="deliverytype">
+        <ng-container *ngFor="let d of deliverytypes">
+          <option [value]="d">{{ d }}</option>
+        </ng-container>
+      </select>
+      <button type="button" (click)="placeOrder()" class="btn btn-primary">PLACE ORDER</button>
+    </div>
+  </div>
+</div>
+
+<ng-template #contentMenu let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Menu</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let dish of menu$ | async">
+              <ng-container *ngIf="dish.dishstatus">
+                <td>{{ dish.dishname }}</td>
+                <td>{{ dish.dishprice | currency }}</td>
+                <td><input type="number" name="qty" [(ngModel)]="quantities[dish.dishid]"/></td>
+                <td>
+                  <button type="button" (click)="update(dish, quantities[dish.dishid])" class="btn btn-primary"><i class="fas fa-plus"></i></button>
+                </td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" ngbTooltip="Make Sure To Add Items Before Clicking Save" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template>

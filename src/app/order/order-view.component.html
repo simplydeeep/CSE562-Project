@@ -1,0 +1,41 @@
+<div class="container">
+  <div *ngIf="order">
+    <dl class="row">
+      <dt class="col-md-3">Order ID:</dt>
+      <dd class="col-md-9">{{ order.orderid }}</dd>
+
+      <dt class="col-md-3">Order Date:</dt>
+      <dd class="col-md-9">{{ order.datecreated | date }}</dd>
+
+      <dt class="col-md-3">Order Total:</dt>
+      <dd class="col-md-9">{{ order.ordertotal | currency }}</dd>
+
+      <dt class="col-md-3">Order Status:</dt>
+      <dd class="col-md-9">{{ order.orderstatus }}</dd>
+
+      <dt class="col-md-3">Delivery Method:</dt>
+      <dd class="col-md-9">{{ order.deliverytype }}</dd>
+    </dl>
+
+    <h2>Order Items</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Dish Name</th>
+            <th>Quantity</th>
+            <th>Dish Price</th>
+            <th>Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.dishname }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.dishprice | currency }}</td>
+            <td>{{ item.amount | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
