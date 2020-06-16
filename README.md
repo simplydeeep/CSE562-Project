@@ -8,7 +8,6 @@ Please read before performing any actions.
 
 - It is the DBMS Project where the Frontend is based on Angular 9 and HTML5 with Bootstrap 4.4.
 - This project is generated from the server side of NodeJS and using ExpressJS Framework.
-- This version uses a PostgreSQL database to store the routes from Point A to Point B and also the weather during the journey.
 - Using NPM as the package builder and the CLI task runner.
 
 ## System Requirements
